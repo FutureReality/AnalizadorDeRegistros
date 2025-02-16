@@ -89,7 +89,7 @@ funcion tipos(frase):
     tipo2 = []
     tipo3 = []
     
-    palabras = dividir(frase):
+    palabras = dividir(frase)
     for palabra en palabras:
         si palabra == "tipo 1":
             añadir.tipo1(frase)
@@ -121,10 +121,10 @@ funcion tipos(frase):
 funcion direcciones(frase):
     ips = []
     CRITERIO_BUSQUEDA = xxx.xxx.xxx.xxx #Esta constante deberia dar el patron de busqueda
-    palabras = dividir(frase):
-        por palabra en palabras:
-         si palabra == CRITERIO_BUSQUEDA:
-                añadir.ips(palabra)
+    palabras = dividir(frase)
+    por palabra en palabras:
+        si palabra == CRITERIO_BUSQUEDA:
+           añadir.ips(palabra)
     por ip en ips:
         print(ip)
 
@@ -134,11 +134,32 @@ funcion direcciones(frase):
 #2.4. Buscar por palabras clave
 
 #Pre: El usuario no buscara simbolos ni caracteres no alfanumericos
+
+"""
+
+funcion busqueda(ruta):
+    cantidad = 0
+    palabra_busca = input()
+    palabra_busca = minuscula.palabra_busca()
+    
+    abrir(ruta, leer) como linea:
+        palabras = dividir(linea)
+        por palabra en palabras:
+            si palabra == palabra_busca:
+                cantidad + 1
+    print(cantidad)
+        
+    
+
+"""
+
 #Post: Se dara la cantidad de veces que sale la palabra o letra.
 
 #3. Generacion De Informe
 
 #Pre: Se obtendran todos los datos anteriores
+
+
 #Post: Se dara un fichero txt con todos los datos ateriores
 
 
