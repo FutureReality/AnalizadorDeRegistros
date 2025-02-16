@@ -115,6 +115,20 @@ funcion tipos(frase):
 #2.3. Identifica IP's
 
 #Pre: Las direcciones IP seran IPv4
+
+"""
+
+funcion direcciones(frase):
+    ips = []
+    CRITERIO_BUSQUEDA = xxx.xxx.xxx.xxx #Esta constante deberia dar el patron de busqueda
+    palabras = dividir(frase):
+        por palabra en palabras:
+         si palabra == CRITERIO_BUSQUEDA:
+                añadir.ips(palabra)
+    por ip en ips:
+        print(ip)
+
+"""
 #Post: Se listaran todas las IPv4 al final
 
 #2.4. Buscar por palabras clave
