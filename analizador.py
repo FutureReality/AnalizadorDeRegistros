@@ -159,6 +159,31 @@ funcion busqueda(ruta):
 
 #Pre: Se obtendran todos los datos anteriores
 
+"""
+# IMPORTANTE: A los valores finales dados en las funciones se les otorga un return para devolver el valor
+
+funcion fichero():
+    cantidad = contar()
+    tipo1, tipo2, tipo3 = tipos()
+    direcciones = direcciones()
+    print("Quieres mostrarlo en pantalla (1) o un fichero (2)")
+    seleccion = input()
+    si seleccion == 1:
+        print(cantidad)
+        print(tipo1)
+        print(tipo2)
+        print(tipo3)
+        print(direcciones)
+    si seleccion == 2:
+        abrir(ruta, escribir) como archivo:
+            archivo.escribir(cantidad)
+            archivo.escribir(tipo1)
+            archivo.escribir(tipo2)
+            archivo.escribir(tipo3)
+            archivo.escribir(direcciones)
+            
+"""
+
 
 #Post: Se dara un fichero txt con todos los datos ateriores
 
