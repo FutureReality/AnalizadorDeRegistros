@@ -2,6 +2,8 @@ import re
 
 def contar(ruta):
     lineas = []
+    #abre el archivo en modo de lectura, cuenta las lineas y las pasa
+    #como variables de una en una
     with open(ruta, "r") as fp:
         for count, line in enumerate(fp):
             if line.strip():
@@ -9,38 +11,46 @@ def contar(ruta):
     return count + 1, lineas
 
 def tipos(linea):
-    tipo_error = []
+    #Se definen los tres tipos de log
     tipo_warning = []
+    tipo_error = []
     tipo_info = []
     
     linea = linea.lower()
     palabras = linea.split()
     
+    #Se organizan segun el tipo de log en las tres categorias anteriores
     for palabra in palabras:
         if palabra == "info:":
             tipo_info.append(linea)
-        if palabra == "error:":
+        elif palabra == "error:":
             tipo_error.append(linea)       
-        if palabra == "warning:":
+        elif palabra == "warning:":
             tipo_warning.append(linea)
        
+    #los devuelve com valores para ser utilizados de forma escalable
     return tipo_error, tipo_info, tipo_warning
 
 def direcciones(frase):
     ips = []
+    #Esta es la forma en la que se escriben las IP's
     CRITERIO_BUSQUEDA = r"\b\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\b" 
 
+    #dividimos el log pasado en palabras que puedan ser comparadas con el criterio
     palabras = frase.split() 
     for palabra in palabras:
         if re.fullmatch(CRITERIO_BUSQUEDA, palabra): 
             ips.append(palabra)
 
+    #Devolvemos las IP's encontradas
     return ips
     
 def busqueda(ruta):
     cantidad = 0
-    palabra_busca = input("Ingrese la palabra que desea buscar: ").strip().lower()  # Convertimos a minúsculas
+    #Usamos el strip para eliminar espacios en blanco y el lower para volverlo a minusculas
+    palabra_busca = input("Ingrese la palabra que desea buscar: ").strip().lower()
     
+    #Realizamos una busqueda de las palabras, similar al modulo primero
     with open(ruta, "r") as fp:
         for linea in fp:
             palabras = linea.split()
@@ -52,13 +62,17 @@ def busqueda(ruta):
 
     
 def informe(ruta):
+    #seteamos todas las variables
     total_registros, lineas = contar(ruta)
     errores = []
     warnings = []
     infos = []
     ips_encontradas = []
     
+    NOMBRE_INFORME = "informe.txt"
+    
     for linea in lineas:
+        #Recopilamos toda la informacion
         tipo_error, tipo_warning, tipo_info = tipos(linea)
         errores.extend(tipo_error)
         warnings.extend(tipo_warning)
@@ -83,12 +97,13 @@ def informe(ruta):
 
     opcion = input("[1] mostrar [2] guardar en txt [3] buscar palabra [else] salir").strip()
 
+    #Opciones que puede elegir el usuario
     if opcion == "1":
         print(salida)
     elif opcion == "2":
-        with open("informe.txt", "w") as archivo:
+        with open(NOMBRE_INFORME, "w") as archivo:
             archivo.write(salida)
-        print("Guardado aqui mismo como: 'informe.txt'")
+        print(f"Guardado aqui mismo como: '{NOMBRE_INFORME}'")
     elif opcion == "3":
         busqueda(ruta)
     else:
@@ -97,6 +112,6 @@ def informe(ruta):
 
 while True:
     print("Bienvenido al lector de log's")
-    ruta = input("Diga la ruta de su fichero: ")
+    ruta = input("Diga la ruta de su fichero: ") #En windows funciona raro
     informe(ruta)
     
