@@ -183,11 +183,63 @@ def contar(ruta):
                 lineas.append(line.strip())
     return count + 1, lineas
 
+def tipos(linea):
+    tipo_error = []
+    tipo_warning = []
+    tipo_info = []
+    
+    linea = linea.lower()
+    palabras = linea.split()
+    
+    for palabra in palabras:
+        if palabra == "info:":
+            tipo_info.append(linea)
+        if palabra == "error:":
+            tipo_error.append(linea)       
+        if palabra == "warning:":
+            tipo_warning.append(linea)
+       
+    return tipo_error, tipo_info, tipo_warning
+
 def informe(ruta):
     total_registros, lineas = contar(ruta)
-    print(total_registros)
+    errores = []
+    warnings = []
+    infos = []
+    
+    for linea in lineas:
+        tipo_error, tipo_warning, tipo_info = tipos(linea)
+        errores.extend(tipo_error)
+        warnings.extend(tipo_warning)
+        infos.extend(tipo_info)
+
+    salida = (
+        f"Registros segun tupo: {total_registros}\n\n"
+        
+        f"Errores:\n{chr(10).join(errores)
+        if errores else 'Ninguno'}\n\n"
+        
+        f"Warnings:\n{chr(10).join(warnings)
+        if warnings else 'Ninguno'}\n\n"
+        
+        f"Informaciones:\n{chr(10).join(infos)
+        if infos else 'Ninguna'}\n"
+    )
+
+    opcion = input("Imprimir en pantalla (1) guardar en archivo (2) Cancelar cualquier otro").strip()
+
+    if opcion == "1":
+        print(salida)
+    elif opcion == "2":
+        with open("informe.txt", "w") as archivo:
+            archivo.write(salida)
+        print("Guardado aqui mismo como: 'informe.txt'")
+    else:
+        print("Cancelando...")
+        
 
 while True:
     print("Bienvenido al lector de log's")
     ruta = input("Diga la ruta de su fichero: ")
-    count, lineas = contar(ruta)
+    informe(ruta)
+    
