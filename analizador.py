@@ -7,12 +7,8 @@
 
 #Pre: Los registros siguen la misma estructura
 
-def contar(ruta):
-        with open(ruta, "r") as fp:
-                for count, line in enumerate(fp):
-                        pass
-        print(count + 1)
 
+        
 #Post: Se dara el numero de registros totales sin contar lineas en blanco
 
 
@@ -39,6 +35,8 @@ def contar(ruta):
 #3. Generacion De Informe
 
 #Pre: Se obtendran todos los datos anteriores
+
+
 #Post: Se dara un fichero txt con todos los datos ateriores
 
 
@@ -46,16 +44,9 @@ def contar(ruta):
 
 #Pre: Entrara un fichero de tipo log con una estructura generica
 
-while True:
-	print("Bienvenido al lector de log's")
-	ruta = input("Diga la ruta de su fichero: ")
-	contar(ruta)
+
 
 #Post: Enviara datos sobre los apartados deseados
-
-
-ruta = input("Agregue la ruta: ")
-contar(ruta)
 
 # ---- Ya que me da algo de tiempo hare un pseudocodigo rapido
 
@@ -184,21 +175,19 @@ funcion fichero():
             
 """
 
+def contar(ruta):
+    lineas = []
+    with open(ruta, "r") as fp:
+        for count, line in enumerate(fp):
+            if line.strip():
+                lineas.append(line.strip())
+    return count + 1, lineas
 
-#Post: Se dara un fichero txt con todos los datos ateriores
-
-
-#1. Leer Fichero
-
-#Pre: Entrara un fichero de tipo log con una estructura generica
+def informe(ruta):
+    total_registros, lineas = contar(ruta)
+    print(total_registros)
 
 while True:
-	print("Bienvenido al lector de log's")
-	ruta = input("Diga la ruta de su fichero: ")
-	contar(ruta)
-
-#Post: Enviara datos sobre los apartados deseados
-
-
-ruta = input("Agregue la ruta: ")
-contar(ruta)
+    print("Bienvenido al lector de log's")
+    ruta = input("Diga la ruta de su fichero: ")
+    count, lineas = contar(ruta)
