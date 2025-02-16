@@ -1,4 +1,4 @@
-
+import re
 #2. Analizar fichero de registro
 
 #2.1. Contar el numero total de registros
@@ -201,18 +201,30 @@ def tipos(linea):
        
     return tipo_error, tipo_info, tipo_warning
 
+def direcciones(frase):
+    ips = []
+    CRITERIO_BUSQUEDA = r"\b\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\b" 
+
+    palabras = frase.split() 
+    for palabra in palabras:
+        if re.fullmatch(CRITERIO_BUSQUEDA, palabra): 
+            ips.append(palabra)
+
+    return ips
 def informe(ruta):
     total_registros, lineas = contar(ruta)
     errores = []
     warnings = []
     infos = []
+    ips_encontradas = []
     
     for linea in lineas:
         tipo_error, tipo_warning, tipo_info = tipos(linea)
         errores.extend(tipo_error)
         warnings.extend(tipo_warning)
         infos.extend(tipo_info)
-
+        ips_encontradas.extend(direcciones(linea))
+        
     salida = (
         f"Registros segun tupo: {total_registros}\n\n"
         
@@ -224,6 +236,9 @@ def informe(ruta):
         
         f"Informaciones:\n{chr(10).join(infos)
         if infos else 'Ninguna'}\n"
+        
+        f"\nDirecciones IP encontradas:\n{chr(10).join(ips_encontradas)
+        if ips_encontradas else 'Ninguna'}\n"
     )
 
     opcion = input("Imprimir en pantalla (1) guardar en archivo (2) Cancelar cualquier otro").strip()
@@ -236,7 +251,7 @@ def informe(ruta):
         print("Guardado aqui mismo como: 'informe.txt'")
     else:
         print("Cancelando...")
-        
+    
 
 while True:
     print("Bienvenido al lector de log's")
